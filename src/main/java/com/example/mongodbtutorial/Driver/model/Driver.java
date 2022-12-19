@@ -26,5 +26,5 @@ public class Driver extends BaseDocument {
     private List<Car> cars;
 
     @DocumentReference
-    private List<Result> results;
+    private Result result;
 }
