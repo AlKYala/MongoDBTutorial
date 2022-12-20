@@ -18,6 +18,7 @@ public class Car extends BaseDocument {
 
     private Integer horsepower;
 
-    @DocumentReference
-    private List<Driver> drivers;
+    private String model;
+
+    private String teamId;
 }

@@ -22,9 +22,5 @@ public class Driver extends BaseDocument {
 
     private String lastName;
 
-    @DocumentReference
-    private List<Car> cars;
-
-    @DocumentReference
-    private Result result;
+    private String resultId;
 }
