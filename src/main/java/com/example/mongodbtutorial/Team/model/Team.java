@@ -1,7 +1,6 @@
 package com.example.mongodbtutorial.Team.model;
 
 import com.example.mongodbtutorial.Car.model.Car;
-import com.example.mongodbtutorial.Result.model.Result;
 import com.example.mongodbtutorial.shared.models.BaseDocument;
 import lombok.Data;
 import lombok.Getter;

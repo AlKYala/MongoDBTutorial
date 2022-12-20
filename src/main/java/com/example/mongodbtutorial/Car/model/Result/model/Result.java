@@ -1,4 +1,4 @@
-package com.example.mongodbtutorial.Result.model;
+package com.example.mongodbtutorial.Car.model.Result.model;
 
 import com.example.mongodbtutorial.Driver.model.Driver;
 import com.example.mongodbtutorial.Season.model.Season;
