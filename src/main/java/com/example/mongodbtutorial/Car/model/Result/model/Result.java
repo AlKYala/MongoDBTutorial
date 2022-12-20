@@ -24,5 +24,9 @@ public class Result extends BaseDocument {
     @DocumentReference(lazy=true)
     private Driver driver;
 
+    private Integer points;
+
+    private Integer rank;
+
     private String seasonId;
 }
