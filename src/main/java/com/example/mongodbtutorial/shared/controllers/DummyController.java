@@ -1,4 +1,4 @@
-package com.example.mongodbtutorial.shared;
+package com.example.mongodbtutorial.shared.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
