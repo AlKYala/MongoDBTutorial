@@ -2,6 +2,7 @@ package com.example.mongodbtutorial.Team.model;
 
 import com.example.mongodbtutorial.Car.model.Car;
 import com.example.mongodbtutorial.shared.models.BaseDocument;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,12 +16,11 @@ import java.util.List;
 @Document
 @Getter
 @Setter
+@AllArgsConstructor
 public class Team extends BaseDocument {
 
     @Indexed(unique = true)
     private String name;
-
-    private String resultId;
 
     @DocumentReference
     private List<Car> cars;
