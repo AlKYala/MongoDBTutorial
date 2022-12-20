@@ -5,6 +5,7 @@ import com.example.mongodbtutorial.shared.models.BaseDocument;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
@@ -15,6 +16,7 @@ import java.util.List;
 @Data
 @Getter
 @Setter
+@CompoundIndex(name = "year_sorter", def = "{year : 1}")
 public class Season extends BaseDocument {
 
     @Indexed(unique = true)
