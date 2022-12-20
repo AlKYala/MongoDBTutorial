@@ -2,6 +2,7 @@ package com.example.mongodbtutorial.Season.model;
 
 import com.example.mongodbtutorial.Car.model.Result.model.Result;
 import com.example.mongodbtutorial.shared.models.BaseDocument;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,6 +18,7 @@ import java.util.List;
 @Getter
 @Setter
 @CompoundIndex(name = "year_sorter", def = "{year : 1}")
+@AllArgsConstructor
 public class Season extends BaseDocument {
 
     @Indexed(unique = true)

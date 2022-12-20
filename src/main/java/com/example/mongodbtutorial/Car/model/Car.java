@@ -2,6 +2,7 @@ package com.example.mongodbtutorial.Car.model;
 
 import com.example.mongodbtutorial.Driver.model.Driver;
 import com.example.mongodbtutorial.shared.models.BaseDocument;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,6 +15,7 @@ import java.util.List;
 @Document
 @Getter
 @Setter
+@AllArgsConstructor
 public class Car extends BaseDocument {
 
     private Integer horsepower;
