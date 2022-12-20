@@ -7,40 +7,42 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class SeasonServiceImpl implements SeasonService{
+public class SeasonServiceImpl implements SeasonServiceReactive {
 
     @Autowired
     private SeasonRepository seasonRepository;
 
     @Override
-    public Season findById(String id) {
-        return seasonRepository.findById(id).get();
+    public Mono<Season> findById(String id) {
+        return seasonRepository.findById(id);
     }
 
     @Override
     @Cacheable("seasons")
-    public List<Season> findAll() {
-        return seasonRepository.findAll();
+    public Flux<Season> findAll() {
+        return seasonRepository.findAll().log();
     }
 
     @Override
-    public Season findByYear(Long year) {
-        return seasonRepository.findSeasonByYear(year).get();
+    public Mono<Season> findByYear(Long year) {
+        return seasonRepository.findSeasonByYear(year);
     }
 
     @Override
-    public Season save(Season season) {
+    public Mono<Season> save(Season season) {
         return seasonRepository.save(season);
     }
 
     @Override
-    public Season update(Season season) {
+    public Mono<Season> update(Season season) {
         //leaving out special update logic because this is just a demo
         return seasonRepository.save(season);
     }
@@ -49,5 +51,12 @@ public class SeasonServiceImpl implements SeasonService{
     public String delete(Season season) {
         seasonRepository.delete(season);
         return season.getId();
+    }
+
+    public void foo() {
+        Integer counter = 0;
+        this.findAll().subscribe(
+                season -> log.info(season.getYear().toString())
+        );
     }
 }
