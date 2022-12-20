@@ -27,6 +27,4 @@ public class Result extends BaseDocument {
     private Integer points;
 
     private Integer rank;
-
-    private String seasonId;
 }
