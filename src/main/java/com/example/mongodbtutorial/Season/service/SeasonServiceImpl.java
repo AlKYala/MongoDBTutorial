@@ -1,11 +1,17 @@
 package com.example.mongodbtutorial.Season.service;
 
+import com.example.mongodbtutorial.Driver.model.Driver;
 import com.example.mongodbtutorial.Season.model.Season;
 import com.example.mongodbtutorial.Season.repository.SeasonRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -20,6 +26,9 @@ public class SeasonServiceImpl implements SeasonServiceReactive {
     @Autowired
     private SeasonRepository seasonRepository;
 
+    @Autowired
+    private ReactiveMongoTemplate mongoTemplate;
+
     @Override
     public Mono<Season> findById(String id) {
         return seasonRepository.findById(id);
@@ -29,6 +38,13 @@ public class SeasonServiceImpl implements SeasonServiceReactive {
     @Cacheable("seasons")
     public Flux<Season> findAll() {
         return seasonRepository.findAll().log();
+    }
+
+    @Override
+    public Flux<Season> findAllPaginated(int page, int size) {
+        PageRequest pagination = PageRequest.of(page, size);
+
+        return this.seasonRepository.findAll().take(size).skip(page * size);
     }
 
     @Override
