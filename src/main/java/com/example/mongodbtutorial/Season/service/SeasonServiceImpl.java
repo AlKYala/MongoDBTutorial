@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -49,5 +50,12 @@ public class SeasonServiceImpl implements SeasonService{
     public String delete(Season season) {
         seasonRepository.delete(season);
         return season.getId();
+    }
+
+    @Override
+    public List<Season> paginate(int page, int pageSize) {
+        PageRequest pageRequest = PageRequest.of(page, pageSize);
+
+        return this.seasonRepository.findAll(pageRequest).stream().toList();
     }
 }

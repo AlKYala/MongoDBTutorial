@@ -18,4 +18,6 @@ public interface SeasonService {
     public Season update(Season season);
 
     public String delete(Season season);
+
+    public List<Season> paginate(int page, int pageSize);
 }
