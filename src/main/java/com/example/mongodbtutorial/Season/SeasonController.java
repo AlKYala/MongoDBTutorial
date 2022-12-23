@@ -1,23 +1,42 @@
 package com.example.mongodbtutorial.Season;
 
+import com.example.mongodbtutorial.Driver.model.Driver;
 import com.example.mongodbtutorial.Season.model.Season;
 import com.example.mongodbtutorial.Season.repository.SeasonRepository;
 import com.example.mongodbtutorial.Season.service.SeasonService;
+import com.example.mongodbtutorial.Season.service.SeasonServiceReactive;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/season")
 public class SeasonController {
 
     @Autowired
-    private SeasonService seasonService;
+    private SeasonServiceReactive seasonService;
 
     @GetMapping("/{year}")
-    public Season getSeasonByYear(@PathVariable Long year) {
+    public Mono<Season> getSeasonByYear(@PathVariable Long year) {
         return this.seasonService.findByYear(year);
+    }
+    @GetMapping(path = "/all", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<Season> findAll() {
+        return this.seasonService.findAll();
+    }
+
+    @GetMapping("/paginated")
+    public Flux<Season> findPaginated(@RequestParam Integer page, @RequestParam Integer size) {
+        if(page == null || size == null) {
+            throw new RuntimeException("URL Parameter fehlen");
+        }
+        return this.seasonService.findAllPaginated(page, size);
+    }
+
+    @GetMapping("/foo")
+    public void doTheFoo() {
+        seasonService.foo();
     }
 }
